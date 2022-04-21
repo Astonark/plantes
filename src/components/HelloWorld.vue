@@ -9,16 +9,14 @@
       </tr>
       </thead>
       <tbody>
-        <tr v-for="plant in plants">
-        <td> {{ plant.id }} </td>
-        <td> {{ plant.description }} </td>
-        <td> {{ plant.categoryId }} </td>
+      <tr v-for="plant in plants">
+        <td>{{ plant.id }}</td>
+        <td><input type="text" @keyup.enter="updateProductDescription(plant.id, plant.description)" v-model="plant.description"></td>
+        <td>{{ plant.categoryId }}</td>
+        <td><button @click="deleteProduct(plant.id)">Supprimer</button></td>
       </tr>
       </tbody>
     </table>
-    <div>
-      <input type="text" placeholder="Ajouter un film">
-    </div>
   </div>
 </template>
 
@@ -29,13 +27,15 @@ export default {
   name: 'Crud Plants',
   data() {
     return {
-      plants : null,
-      inputPlant : {
-
+      plants: null,
+      updatedProduct: {
+        title: null,
+        description: null,
+        categoryId: null
       }
     }
   },
-  methods : {
+  methods: {
     loadProducts() {
       axios.get('http://localhost:3000/products')
           .then(
@@ -46,6 +46,35 @@ export default {
           .catch(
               (error) => {
                 console.log(error)
+              }
+          )
+    },
+    deleteProduct(productId) {
+      axios.delete('http://localhost:3000/products/' + productId)
+          .then(
+              (result) => {
+                console.log('sa a fonctionné')
+                this.loadProducts()
+              }
+          )
+          .catch(
+              (error) => {
+                console.log('un bueg est survenur :((((')
+                this.loadProducts()
+              }
+          )
+    },
+    updateProductDescription(productId, productDescription) {
+      axios.put('http://localhost:3000/products/' + productId, {"description" : productDescription})
+          .then(
+              (result) => {
+                console.log(productId, plantDescription)
+                this.loadProducts()
+              }
+          )
+          .catch(
+              (error) => {
+                console.log('une beug oazehrhezr')
               }
           )
     }
@@ -68,9 +97,13 @@ export default {
   padding: 8px;
 }
 
-#customers tr:nth-child(even){background-color: #f2f2f2;}
+#customers tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
 
-#customers tr:hover {background-color: #ddd;}
+#customers tr:hover {
+  background-color: #ddd;
+}
 
 #customers th {
   padding-top: 12px;
@@ -81,7 +114,7 @@ export default {
 }
 
 input[type=text], select {
-  width: 100%;
+  width: 80vw;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;

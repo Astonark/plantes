@@ -4,16 +4,23 @@
       <thead>
       <tr>
         <th>Id</th>
-        <th>Nom</th>
+        <th>Titre</th>
         <th>Catégorie</th>
       </tr>
       </thead>
       <tbody>
       <tr v-for="plant in plants">
         <td>{{ plant.id }}</td>
-        <td><input type="text" @keyup.enter="updateProductDescription(plant.id, plant.description)" v-model="plant.description"></td>
+        <td>
+          <input type="text" @keyup.enter="updateProduct(plant.id, plant.description, plant.title, plant.categoryId)" v-model="plant.title">
+        </td>
+        <td>
+          <input type="text" @keyup.enter="updateProduct(plant.id, plant.description, plant.title, plant.categoryId)" v-model="plant.description">
+        </td>
         <td>{{ plant.categoryId }}</td>
-        <td><button @click="deleteProduct(plant.id)">Supprimer</button></td>
+        <td>
+          <button @click="deleteProduct(plant.id)">Supprimer</button>
+        </td>
       </tr>
       </tbody>
     </table>
@@ -64,8 +71,12 @@ export default {
               }
           )
     },
-    updateProductDescription(productId, productDescription) {
-      axios.put('http://localhost:3000/products/' + productId, {"description" : productDescription})
+    updateProduct(productId, productDescription, productTitle, productCategoryId) {
+      axios.put('http://localhost:3000/products/' + productId, {
+        "description" : productDescription,
+        "title" : productTitle,
+        "categoryId" : productCategoryId
+      })
           .then(
               (result) => {
                 console.log(productId, plantDescription)
@@ -77,6 +88,9 @@ export default {
                 console.log('une beug oazehrhezr')
               }
           )
+    },
+    getCategoryName(categoryId) {
+
     }
   },
   mounted() {

@@ -1,25 +1,30 @@
 <template>
-<div>
-  <div id="customers">
-    <table class="table">
-      <thead>
-      <tr>
-        <th>Id</th>
-        <th>Nom</th>
-        <th>Catégorie</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="category in categories">
-        <td>{{ category.id }}</td>
-        <td><input type="text" @keyup.enter="updateProductDescription(category.id, category.description)" v-model="category.description"></td>
-        <td>{{ category.categoryId }}</td>
-        <td><button>Supprimer</button></td>
-      </tr>
-      </tbody>
-    </table>
+  <div>
+    <div id="customers">
+      <table class="table">
+        <thead>
+        <tr>
+          <th>Id</th>
+          <th>Nom</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="category in categories">
+          <td>{{ category.id }}</td>
+          <td>
+            <input type="text" @keyup.enter="updateProduct(category.id, category.description, category.title, category.categoryId)" v-model="category.title">
+          </td>
+          <td>
+          </td>
+          <td>{{ category.categoryId }}</td>
+          <td>
+            <button @click="deleteCategory(category.id)">Supprimer</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -32,7 +37,7 @@ export default {
       categories: null
     }
   },
-  methods : {
+  methods: {
     loadCategories() {
       axios.get('http://localhost:3000/categories')
           .then(
@@ -46,11 +51,31 @@ export default {
                 console.log(error, 'un méchant beug est arrivé :(')
               }
           )
+    },
+    deleteCategory(categoryId) {
+      axios.delete('http://localhost:3000/categories/' + categoryId)
+          .then(
+              (result) => {
+                console.log('sa a fonctionné')
+                this.loadProducts()
+              }
+          )
+          .catch(
+              (error) => {
+                console.log('un bueg est survenur :((((')
+                this.loadProducts()
+              }
+          )
     }
+  },
+  mounted() {
+    this.loadCategories()
   }
 }
 </script>
 
-<style>
-
+<style scoped>
+table {
+  background-color: white;
+}
 </style>

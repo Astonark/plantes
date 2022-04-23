@@ -1,11 +1,12 @@
 <template>
-  <div id="customers">
+  <div id="table">
     <table class="table">
       <thead>
       <tr>
         <th>Id</th>
         <th>Titre</th>
-        <th>Catégorie</th>
+        <th>Description</th>
+        <th>Catégorie Id</th>
       </tr>
       </thead>
       <tbody>
@@ -15,7 +16,7 @@
           <input type="text" @keyup.enter="updateProduct(plant.id, plant.description, plant.title, plant.categoryId)" v-model="plant.title">
         </td>
         <td>
-          <input type="text" @keyup.enter="updateProduct(plant.id, plant.description, plant.title, plant.categoryId)" v-model="plant.description">
+          <textarea rows="1.5" cols="80" type="text" @keyup.enter="updateProduct(plant.id, plant.description, plant.title, plant.categoryId)" v-model="plant.description"></textarea>
         </td>
         <td>{{ plant.categoryId }}</td>
         <td>
@@ -100,7 +101,7 @@ export default {
 </script>
 
 <style scoped>
-#customers {
+#table {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
@@ -115,20 +116,19 @@ export default {
   background-color: #f2f2f2;
 }
 
-#customers tr:hover {
+#table tr:hover {
   background-color: #ddd;
 }
 
-#customers th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #04AA6D;
-  color: white;
+#table th {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-align: center;
+  color: black;
 }
 
 input[type=text], select {
-  width: 80vw;
+  width: 750px;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;

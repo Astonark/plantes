@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <input type="text" v-model="product.title" placeholder="Titre du produit">
     <input type="text" v-model="product.description" placeholder="Description du produit">
     <input type="text" v-model="product.categoryId" placeholder="Catégorie">
@@ -43,8 +43,14 @@ export default {
 </script>
 
 <style>
-  input {
-    display: block;
-    margin-top: 10px;
+  .container {
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  .container input {
+    margin-left: auto;
+    margin-right: auto;
   }
 </style>

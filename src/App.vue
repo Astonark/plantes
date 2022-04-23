@@ -2,7 +2,6 @@
   <nav>
     <router-link to="/">Produits</router-link>
     <router-link to="/categories">Catégories</router-link>
-    <router-link to="/about">About</router-link>
   </nav>
   <router-view/>
 </template>
@@ -17,6 +16,7 @@
 
 nav {
   padding: 30px;
+  background-color: greenyellow;
 }
 
 nav a {

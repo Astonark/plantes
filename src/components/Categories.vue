@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="customers">
+    <div id="table">
       <table class="table">
         <thead>
         <tr>
@@ -13,8 +13,6 @@
           <td>{{ category.id }}</td>
           <td>
             <input type="text" @keyup.enter="updateProduct(category.id, category.description, category.title, category.categoryId)" v-model="category.title">
-          </td>
-          <td>
           </td>
           <td>{{ category.categoryId }}</td>
           <td>
@@ -73,9 +71,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-table {
-  background-color: white;
-}
-</style>

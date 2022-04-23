@@ -25,6 +25,7 @@
       </tr>
       </tbody>
     </table>
+    <router-link class="link" to="/create-product">Créer un produit</router-link>
   </div>
 </template>
 
@@ -100,7 +101,15 @@ export default {
 }
 </script>
 
-<style scoped>
+<style >
+.link {
+  font-weight: bold;
+  color: blue;
+  text-decoration: none;
+  margin: 10px;
+  font-size: 1.5rem;
+}
+
 #table {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
@@ -128,12 +137,16 @@ export default {
 }
 
 input[type=text], select {
-  width: 750px;
+  width: 550px;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+}
+
+.table {
+  margin: auto;
 }
 </style>

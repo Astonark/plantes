@@ -2,7 +2,9 @@
   <div class="container">
     <input type="text" v-model="product.title" placeholder="Titre du produit">
     <input type="text" v-model="product.description" placeholder="Description du produit">
-    <input type="text" v-model="product.categoryId" placeholder="Catégorie">
+    <select v-model="product.categoryId">
+      <option v-for="category in categories" :value="category.id">{{ category.title }}</option>
+    </select>
     <input @click="storeProduct" type="submit" value="envoyer">
   </div>
 
@@ -13,6 +15,7 @@
 
 <script>
 import axios from "axios";
+import router from "@/router";
 
 export default {
   data() {
@@ -21,7 +24,8 @@ export default {
         title : null,
         description : null,
         categoryId : null
-      }
+      },
+      categories: null
     }
   },
   methods : {
@@ -29,6 +33,7 @@ export default {
       axios.post('http://localhost:3000/products', this.product)
           .then(
               (result) => {
+                router.push('http://192.168.1.138:8080/')
                 console.log(this.product)
               }
           )
@@ -37,7 +42,23 @@ export default {
                 console.log(error, this.product)
               }
           )
+    },
+    loadCategories() {
+      axios.get('http://localhost:3000/categories')
+          .then(
+              (result) => {
+                this.categories = result.data
+              }
+          )
+          .catch(
+              (error) => {
+                console.log(error)
+              }
+          )
     }
+  },
+  mounted() {
+    this.loadCategories()
   }
 }
 </script>
@@ -49,7 +70,7 @@ export default {
 
   }
 
-  .container input {
+  .container input, select {
     margin-left: auto;
     margin-right: auto;
   }

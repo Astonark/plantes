@@ -18,7 +18,7 @@
         <td>
           <textarea rows="1.5" cols="80" type="text" @keyup.enter="updateProduct(plant.id, plant.description, plant.title, plant.categoryId)" v-model="plant.description"></textarea>
         </td>
-        <td>{{ plant.categoryId }}</td>
+        <td>{{ plant.category.title }}</td>
         <td>
           <button @click="deleteProduct(plant.id)">Supprimer</button>
         </td>
@@ -37,6 +37,7 @@ export default {
   data() {
     return {
       plants: null,
+      categories: null,
       updatedProduct: {
         title: null,
         description: null,
@@ -46,7 +47,7 @@ export default {
   },
   methods: {
     loadProducts() {
-      axios.get('http://localhost:3000/products')
+      axios.get('http://localhost:3000/products?_expand=category')
           .then(
               (result) => {
                 this.plants = result.data
@@ -91,12 +92,23 @@ export default {
               }
           )
     },
-    getCategoryName(categoryId) {
-
+    loadCategories() {
+      axios.get('http://localhost:3000/categories')
+          .then(
+              (result) => {
+                this.categories = result.data
+              }
+          )
+          .catch(
+              (error) => {
+                console.log(error)
+              }
+          )
     }
   },
   mounted() {
     this.loadProducts()
+    this.loadCategories()
   }
 }
 </script>

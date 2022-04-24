@@ -11,13 +11,10 @@
         <tbody>
         <tr v-for="category in categories">
           <td>{{ category.id }}</td>
-          <td>
-            <input type="text" @keyup.enter="updateProduct(category.id, category.description, category.title, category.categoryId)" v-model="category.title">
-          </td>
+          <td><input type="text" @keyup.enter="updateProduct(category.id, category.description, category.title, category.categoryId)" v-model="category.title"></td>
           <td>{{ category.categoryId }}</td>
-          <td>
-            <button @click="deleteCategory(category.id)">Supprimer</button>
-          </td>
+          <td><button @click="deleteCategory(category.id)">Supprimer</button></td>
+          <td><router-link :to="{path: '/category/' + category.id}">Voir</router-link></td>
         </tr>
         </tbody>
       </table>

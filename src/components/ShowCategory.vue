@@ -1,6 +1,11 @@
 <template>
   <div>
     <h1>{{ category.title }}</h1>
+    <p>
+    <ul>
+    <li v-for="product in category.products">{{ product.title}}</li>
+    </ul>
+    </p>
   </div>
 </template>
 
@@ -20,7 +25,7 @@ export default {
   },
   methods: {
     loadCategory() {
-      axios.get('http://localhost:3000/categories/' + this.id)
+      axios.get('http://localhost:3000/categories/' + this.id + "/?_embed=products")
           .then(
               (result) => {
                 this.category = result.data

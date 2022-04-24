@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <input type="text" v-model="product.title" placeholder="Titre du produit">
-    <input type="text" v-model="product.description" placeholder="Description du produit">
-    <select v-model="product.categoryId">
+    <input required type="text" v-model="product.title" placeholder="Titre du produit">
+    <input required type="text" v-model="product.description" placeholder="Description du produit">
+    <select required v-model="product.categoryId">
       <option v-for="category in categories" :value="category.id">{{ category.title }}</option>
     </select>
     <input @click="storeProduct" type="submit" value="envoyer">
@@ -30,6 +30,7 @@ export default {
   },
   methods : {
     storeProduct() {
+      if (this.product.title != null && this.product.title.trim()!="" && this.product.description != null && this.product.description.trim()!="" && this.product.categoryId != null)
       axios.post('http://localhost:3000/products', this.product)
           .then(
               (result) => {

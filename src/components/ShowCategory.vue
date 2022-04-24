@@ -1,11 +1,9 @@
 <template>
   <div>
     <h1>{{ category.title }}</h1>
-    <p>
     <ul>
-    <li v-for="product in category.products">{{ product.title}}</li>
+      <li v-for="product in category.products">{{ product.title }}</li>
     </ul>
-    </p>
   </div>
 </template>
 

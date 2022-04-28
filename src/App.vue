@@ -16,7 +16,7 @@
 
 nav {
   padding: 30px;
-  background-color: greenyellow;
+  background-color: #ff6160;
 }
 
 nav a {
@@ -37,6 +37,9 @@ body {
   background-image: url("assets/background.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: top;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  margin: 0;
 }
 </style>
